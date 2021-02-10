@@ -2,35 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
- <mapper namespace="com.ssafy.a407.dao.MemberDao">
- 
+<mapper namespace="com.ssafy.a407.dao.MemberDao">
+
  	<select id="applyState" parameterType="map" resultType="map">
  		select permission
  		from a407.member
  		where gId = #{gId} and nickname = #{nickname}
  	</select>
-  	
-  	<select id="selectApplyList" parameterType="int" resultType="UserMemberDto">
+ 	
+ 	<select id="selectApplyList" parameterType="int" resultType="UserMemberDto">
  		select member.mId, user.nickname, user.picture, member.permission
  		from member, user
  		where gId = #{gId} and user.email = member.email
  		and permission = 0
  	</select>
-  	
-  	<select id="selectApplyCount" parameterType="int" resultType="map">
+ 	 	<select id="selectApplyCount" parameterType="int" resultType="map">
   		select count(*) as applyCount
   		from member
   		where gId = #{gId}
   		and permission = 0
   	</select>
-  	
- 	<select id="selectMemberList" parameterType="int" resultType="UserMemberDto">
+  	<select id="selectMemberList" parameterType="int" resultType="UserMemberDto">
  		select member.mId, user.nickname, user.picture, member.permission
  		from member, user
  		where gId = #{gId} and user.email = member.email
  		and (a407.member.permission = 1 or a407.member.permission = 2 or a407.member.permission = 3)
  	</select>
- 	
  	<select id="selectGroupList" parameterType = "String" resultType="GroupMemberDto">
 	 	select member.mId, member.email, a407.group.gId, a407.group.groupName, member.permission, a407.group.img
 	 	from member, a407.group
@@ -52,4 +49,4 @@
  		delete from member
  		where gId = #{gId} and nickname = #{nickname}
  	</delete>
- </mapper>
+</mapper>
